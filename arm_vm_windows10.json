@@ -221,67 +221,9 @@
                             ]
                         },
                         "protectedSettings": {
-                            "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File ./install-software.ps1"
+                            "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File './install-software.ps1 -InstallOffice [parameters('installOffice365')] -InstallVisualStudio [parameters('installVisualStudio')]'"
                         }
                     }
-                },
-                {
-                    "condition": "[parameters('installVisualStudio')]",
-                    "name": "configure-visualstudio",
-                    "type": "extensions",
-                    "apiVersion": "2019-07-01",
-                    "location": "[resourceGroup().location]",
-                    "tags": {
-                        "displayName": "configure visual-studio"
-                    },
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Compute/virtualMachines', variables('vmFullName'))]",
-                        "configure-applications"
-                    ],
-                    "properties": {
-                        "publisher": "Microsoft.Compute",
-                        "type": "CustomScriptExtension",
-                        "typeHandlerVersion": "1.10",
-                        "autoUpgradeMinorVersion": true,
-                        "settings": {
-                            "fileUris": [
-                                "https://raw.githubusercontent.com/Liam-Entasker/Entasker-Chocolatey/main/install-software-visualstudio.ps1"
-                            ]
-                        },
-                        "protectedSettings": {
-                            "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File ./install-software-visualstudio.ps1"
-                        }
-                    }
-
-                },
-                {
-                    "condition": "[parameters('installOffice365')]",
-                    "name": "configure-office365",
-                    "type": "extensions",
-                    "apiVersion": "2019-07-01",
-                    "location": "[resourceGroup().location]",
-                    "tags": {
-                        "displayName": "configure Office 365"
-                    },
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Compute/virtualMachines', variables('vmFullName'))]",
-                        "configure-applications"
-                    ],
-                    "properties": {
-                        "publisher": "Microsoft.Compute",
-                        "type": "CustomScriptExtension",
-                        "typeHandlerVersion": "1.10",
-                        "autoUpgradeMinorVersion": true,
-                        "settings": {
-                            "fileUris": [
-                                "https://raw.githubusercontent.com/Liam-Entasker/Entasker-Chocolatey/main/install-software-office365.ps1"
-                            ]
-                        },
-                        "protectedSettings": {
-                            "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File ./install-software-office365.ps1"
-                        }
-                    }
-
                 }
             ]
         }
