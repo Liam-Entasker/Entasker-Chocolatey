@@ -15,15 +15,21 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object
 # Install Software
 choco install powershell-core -y
 
-# open new process to install the other software
-Start-Process pwsh '-c', 'choco install googlechrome -y --ignore-checksums; choco install git -y; choco install visualstudiocode -y; choco install teamviewer -y; choco install dbatools -y; choco install 7zip -y;'
+$softwareList = @(
+    @{name='googlechrome --ignore-checksums'; install=$true}
+    @{name='git'; install=$true}
+    @{name='visualstudiocode'; install=$true}
+    @{name='teamviewer'; install=$true}
+    @{name='dbatools'; install=$true}
+    @{name='7zip'; install=$true}
+    @{name='office365business'; install=$InstallOffice}
+    @{name='visualstudio2019professional'; install=$InstallVisualStudio}
+)
 
-# install office 365
-if ($InstallOffice) {
-    Start-Process pwsh '-c', 'choco install office365business -y;'
+$procs = foreach ($software in $softwareList) {
+    if ($software.install) {
+        Start-Process pwsh '-c', "choco install $($software.name) -y;" -PassThru
+    }
 }
 
-# install visual studio
-if (InstallVisualStudio) {
-    Start-Process pwsh '-c', 'choco install visualstudio2019professional -y'
-}
+$procs | Wait-Process
