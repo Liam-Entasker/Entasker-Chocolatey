@@ -1,8 +1,8 @@
 [CmdletBinding()]
 param (
     [Parameter()]
-    [bool]$InstallOffice = $false,
-    [bool]$InstallVisualStudio = $false
+    [switch]$InstallOffice = $false,
+    [switch]$InstallVisualStudio = $false
 )
 
 #####
