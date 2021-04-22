@@ -33,3 +33,4 @@ $procs = foreach ($software in $softwareList) {
 }
 
 $procs | Wait-Process
+Write-Verbose "Completed Software Install"
