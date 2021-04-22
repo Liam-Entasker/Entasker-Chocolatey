@@ -221,7 +221,7 @@
                             ]
                         },
                         "protectedSettings": {
-                            "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File './install-software.ps1 -InstallOffice [parameters('installOffice365')] -InstallVisualStudio [parameters('installVisualStudio')]'"
+                            "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File ', './install-software.ps1', ' ', parameters('installOffice365'), ' ', parameters('installVisualStudio'))]"
                         }
                     }
                 }
